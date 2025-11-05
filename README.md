@@ -4,3 +4,10 @@
 npx expo install @react-navigation/native
 npx expo install react-native-screens react-native-safe-area-context
 npm install @react-navigation/native-stack
+
+- Para realizar solicitudes HTTP(API REST) con Axios que es mejor que fetch
+npm install axios
+
+- Para la gráfica
+npm install react-native-chart-kit
+npm install react-native-svg

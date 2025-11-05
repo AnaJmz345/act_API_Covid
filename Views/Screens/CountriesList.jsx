@@ -1,11 +1,22 @@
-import { View, Text, Button, StyleSheet } from 'react-native';
+import { View, Text, Button, StyleSheet,ScrollView } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { CovidApiService } from '../../controllers/CovidApiService';
+import CountryCard from '../Components/CountryCard';
 
 export default function CountriesList({ navigation }) {
+  const [countries, setCountries] = useState([]);
+
+  useEffect(() => {
+    CovidApiService.getAllCountries().then(setCountries).catch(console.error);
+  }, []);
+
   return (
-    <View style={styles.container}>
-      <Text>Bienvenido 👋</Text>
-      <Button title="Ver detalles" onPress={() => navigation.navigate('CountryStats')} />
-    </View>
+    <ScrollView>
+     
+      {countries.map((c, index) => (
+        <CountryCard key={index} country={c} navigation={navigation} />
+      ))}
+    </ScrollView>
   );
 }
 
