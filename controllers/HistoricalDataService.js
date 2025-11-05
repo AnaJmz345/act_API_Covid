@@ -3,7 +3,7 @@ import { CovidCountry } from '../models/CovidCountry';
 
 const API_BASE_URL = 'https://disease.sh/v3/covid-19';
 
-export class CovidApiService {
+export class HistoricalDataService {
   static async getCountryHistoricalData(countryName) {
     try {
       const response = await axios.get(`${API_BASE_URL}/historical/${countryName}?lastdays=30`);
@@ -13,7 +13,7 @@ export class CovidApiService {
     }
   }
 
-  static async processTimelineData() {
+  static processTimelineData(timeline) {
     const labels = Object.keys(timeline).map((date) => {
       const [month, day] = date.split('/');
       const formattedDay = day.toString().padStart(2, '0');

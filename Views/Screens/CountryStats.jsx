@@ -14,7 +14,9 @@ export default function CountryStats() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const historical = await HistoricalDataService.getCountryHistoricalData(country.country);
+        const historical = await HistoricalDataService.getCountryHistoricalData(country.iso2);
+        
+
         const processed = HistoricalDataService.processTimelineData(historical.timeline.cases);
         setCasesData(processed);
       } catch (err) {
@@ -48,8 +50,8 @@ export default function CountryStats() {
       {casesData.labels.length > 0 && (
         <LineChart
           data={{
-            labels: casesData.labels.slice(-30),
-            datasets: [{ data: casesData.values.slice(-30) }],
+            labels: casesData.labels,
+            datasets: [{ data: casesData.values}],
           }}
           width={screenWidth - 32}
           height={220}

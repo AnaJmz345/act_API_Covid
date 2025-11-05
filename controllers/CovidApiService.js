@@ -13,7 +13,8 @@ export class CovidApiService {
           c.recovered,
           c.deaths,
           c.population,
-          c.countryInfo.flag
+          c.countryInfo.flag,
+          c.countryInfo.iso2 
         ));
     } catch (error) {
       console.error('Error al obtener los países:', error);

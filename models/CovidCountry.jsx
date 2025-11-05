@@ -11,7 +11,7 @@ export interface CovidCountry {
 
 // CovidCountry.jsx
 
-export function CovidCountry(country, cases, recovered, deaths, population,flag) {
+export function CovidCountry(country, cases, recovered, deaths, population,flag,iso2) {
   return {
     country, //string, los demás number
     cases,
@@ -19,6 +19,7 @@ export function CovidCountry(country, cases, recovered, deaths, population,flag)
     deaths,
     population,
     flag,
+    iso2
   };
 }
 
