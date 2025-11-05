@@ -26,9 +26,10 @@ export default function CountryStats() {
 
     fetchData();
   }, []);
+  const backgroundColor ='#F5F5F5';
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, {backgroundColor}] }>
       <Text style={styles.title}>{country.country}</Text>
       <Image source={{ uri: country.flag }} style={styles.flag} />
 
@@ -57,10 +58,12 @@ export default function CountryStats() {
           height={220}
           yAxisLabel=""
           chartConfig={{
-            backgroundGradientFrom: '#fff',
-            backgroundGradientTo: '#fff',
-            color: (opacity = 1) => `rgba(99, 102, 241, ${opacity})`,
+            backgroundGradientFrom: backgroundColor,
+            backgroundGradientTo: backgroundColor,
+            color: (opacity = 1) => `rgba(0, 94, 209, ${opacity})`,
           }}
+          style={[styles.graph,{ backgroundColor }]}
+          verticalLabelRotation={90} 
           bezier
         />
       )}
