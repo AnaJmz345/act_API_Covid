@@ -1,15 +1,16 @@
-
-import React from 'react';
-import { View, Text, StyleSheet,Image,Dimensions } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, StyleSheet, Image, Dimensions } from 'react-native';
 import { LineChart } from 'react-native-chart-kit';
 import { useRoute } from '@react-navigation/native';
 import { HistoricalDataService } from '../../controllers/HistoricalDataService';
 
 const screenWidth = Dimensions.get('window').width;
+
 export default function CountryStats() {
   const route = useRoute();
-  const { country } = route.params; // recibe el país
+  const { country } = route.params;
   const [casesData, setCasesData] = useState({ labels: [], values: [] });
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -28,7 +29,7 @@ export default function CountryStats() {
     <View style={styles.container}>
       <Text style={styles.title}>{country.country}</Text>
       <Image source={{ uri: country.flag }} style={styles.flag} />
-      
+
       <Text>
         <Text style={styles.casesLabel}>Cases: </Text>
         <Text>{country.cases}</Text>
@@ -44,23 +45,23 @@ export default function CountryStats() {
         <Text>{country.deaths}</Text>
       </Text>
 
-      <LineChart
-        data={{
-          labels: casesData.labels.slice(-30),
-          datasets: [{data : casesData.labels.slice(-30)}],
-        }}
-        width={screenWidth - 32}
-        height={220}
-        yAxisLabel=""
-        chartConfig={{
-          backgroundGradientFrom: '#fff',
-          backgroundGradientTo: '#fff',
-          color: (opacity = 1) => `rgba(99, 102, 241, ${opacity})`,
-        }}
-        bezier
-      />
-
-
+      {casesData.labels.length > 0 && (
+        <LineChart
+          data={{
+            labels: casesData.labels.slice(-30),
+            datasets: [{ data: casesData.values.slice(-30) }],
+          }}
+          width={screenWidth - 32}
+          height={220}
+          yAxisLabel=""
+          chartConfig={{
+            backgroundGradientFrom: '#fff',
+            backgroundGradientTo: '#fff',
+            color: (opacity = 1) => `rgba(99, 102, 241, ${opacity})`,
+          }}
+          bezier
+        />
+      )}
     </View>
   );
 }
@@ -72,7 +73,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 20,
   },
-   flag: {
+  flag: {
     width: 80,
     height: 50,
     borderRadius: 5,
@@ -83,8 +84,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 10,
   },
-   casesLabel: {
-    color: '#005ED1', 
+  casesLabel: {
+    color: '#005ED1',
     fontWeight: 'bold',
   },
   recoveredLabel: {
@@ -92,7 +93,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   deathsLabel: {
-    color: '#DC3545', 
+    color: '#DC3545',
     fontWeight: 'bold',
   },
 });
